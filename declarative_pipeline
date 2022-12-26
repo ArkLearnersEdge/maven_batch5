@@ -33,6 +33,7 @@ pipeline
 				
 			}
 		}
+	}
 		post
 		{
 			success
@@ -48,5 +49,4 @@ failure reason :''', cc: 'ark@gmail.com', from: '', replyTo: '', subject: 'faile
 			}
 		}
 		
-	}
 }
