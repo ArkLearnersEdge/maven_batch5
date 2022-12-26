@@ -1,0 +1,45 @@
+pipeline
+{
+	agent any
+	stages
+	{
+		stage('continuous download')
+		{
+			steps
+			{
+				git 'https://github.com/ArkLearnersEdge/maven_batch5.git'
+			}
+		}
+		stage('continuous build')
+		{
+			steps
+			{
+				sh 'mvn package'
+			}
+		}
+		stage('continuous deploy')
+		{
+			steps
+			{
+				sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.86.158:/var/lib/tomcat8/webapps/testapp.war'
+			}
+		}
+		stage('continuous testing')
+		{
+			steps
+			{
+				git 'https://github.com/ArkLearnersEdge/FunctionalTesting.git'
+				sh 'java -jar  /home/ubuntu/.jenkins/workspace/descriptive_pipeline/testing.jar'
+				
+			}
+		}
+		stage('continuous production')
+		{
+			steps
+			{
+				sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.89.240:/var/lib/tomcat8/webapps/testapp.war'			
+			}
+		}
+		
+	}
+}
