@@ -33,11 +33,18 @@ pipeline
 				
 			}
 		}
-		stage('continuous production')
+		post
 		{
-			steps
+			success
 			{
 				sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.89.240:/var/lib/tomcat8/webapps/testapp.war'			
+			}
+			failure
+			{
+				mail bcc: '', body: '''testing failure notification
+
+version _Id: 
+failure reason :''', cc: 'ark@gmail.com', from: '', replyTo: '', subject: 'failed: functionality failed ', to: 'lalitha@gmail.com,unis@gmail.com,rasool@gmail.com'
 			}
 		}
 		
