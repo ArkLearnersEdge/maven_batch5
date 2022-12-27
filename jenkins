@@ -44,7 +44,5 @@ pipeline
 		{
 			mail bcc: '', body: 'the processe has been failed plese recheck', cc: 'lalitha@gmail.com', from: '', replyTo: '', subject: 'CI-CD processes failed ', to: 'unis@gmail.com'
 		}
-		
+	}
 }
-
-
