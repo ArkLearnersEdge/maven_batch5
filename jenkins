@@ -22,7 +22,7 @@ pipeline
 		{
 			steps
 			{
-				sh 'scp /home/ubuntu/.jenkins/workspace/scripted_pipeline@2/webapp/target/webapp.war ubuntu@172.31.84.2:/var/lib/tomcat8/webapps/testapp'
+				sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.84.2:/var/lib/tomcat8/webapps/testapp'
 			}
 		}
 		stage('Continuous Testing') 
@@ -30,7 +30,7 @@ pipeline
 			steps
 			{
 				git 'https://github.com/ArkLearnersEdge/FunctionalTesting.git'
-				sh 'java -jar /home/ubuntu/.jenkins/workspace/scripted_pipeline/testing.jar'
+				sh 'java -jar /home/ubuntu/.jenkins/workspace/descriptive_pipeline/testing.jar'
 			}
 	    }
 	}
@@ -38,7 +38,7 @@ pipeline
 	{
 		success
 		{
-			sh 'scp /home/ubuntu/.jenkins/workspace/scripted_pipeline@2/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/testapp'
+			sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/testapp'
 		}
 		failure
 		{
@@ -46,5 +46,6 @@ pipeline
 		}
 	}	
 }
+
 
 
