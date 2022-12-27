@@ -7,43 +7,93 @@ pipeline
 		{
 			steps
 			{
-				git 'https://github.com/ArkLearnersEdge/maven.git'
+				script
+				{
+					try
+					{
+						git 'https://github.com/ArkLearnersEdge/maven.git'
+					}
+					catch(Exception e1)
+					{
+						mail bcc: '', body: 'stage continuous download', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'gitAdmin@gmail.com'
+					}
+				}
 			}
 			
 		}
 		stage('Continuous Build') 
 		{
+		
 			steps
 			{
-				sh 'mvn package'
+				script
+				{
+					try
+					{
+						sh 'mvn package'
+					}
+					catch(Exception e2)
+					{
+						mail bcc: '', body: 'stage continuous build', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'developer@gmail.com'
+					}
+				}
 			}
 		}
 		stage('Continuous Deployment') 
 		{
 			steps
 			{
-				sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/testapp'
+				script
+				{
+					try
+					{
+						sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/testapp'
+					}
+					catch(Exception e3)
+					{
+						mail bcc: '', body: 'stage continuous build', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'admin@gmail.com'
+					}
+				}
 			}
+			
 		}
 		stage('Continuous Testing') 
-		{
+		{	
 			steps
 			{
-				git 'https://github.com/ArkLearnersEdge/FunctionalTesting.git'
-				sh 'java -jar /home/ubuntu/.jenkins/workspace/descriptive_pipeline/testing.jar'
+				script
+				{
+					try
+					{
+						git 'https://github.com/ArkLearnersEdge/FunctionalTesting.git'
+						sh 'java -jar /home/ubuntu/.jenkins/workspace/descriptive_pipeline/testing.jar'
+					}
+					catch(Exception e4)
+					{
+						mail bcc: '', body: 'stage continuous build', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'testing@gmail.com'
+					}
+				}
 			}
+			
 	    }
+	stage('Continuous PRODUCTION') 
+		{	
+			steps
+			{
+				script
+				{
+					try
+					{
+						sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/prodapp'
+					}
+					catch(Exception e5)
+					{
+						mail bcc: '', body: 'stage continuous build', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'admin@gmail.com'
+					}
+				}
+			}
+			
+		}
 	}
-	post
-	{
-		success
-		{
-			sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.82.66:/var/lib/tomcat8/webapps/testapp'
-		}
-		failure
-		{
-			mail bcc: '', body: 'the processe has been failed plese recheck', cc: 'lalitha@gmail.com', from: '', replyTo: '', subject: 'CI-CD processes failed ', to: 'unis@gmail.com'
-		}
-	}	
 }
 
