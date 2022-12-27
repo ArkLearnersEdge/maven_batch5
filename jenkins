@@ -1,26 +1,50 @@
-node('master') 
+pipeline
 {
-	stage('Continuous Download') 
+	agent any
+	stages
 	{
-		git 'https://github.com/ArkLearnersEdge/maven.git'
-    }
-	stage('Continuous Build') 
+		stage('Continuous Download') 
+		{
+			steps
+			{
+				git 'https://github.com/ArkLearnersEdge/maven.git'
+			}
+			
+		}
+		stage('Continuous Build') 
+		{
+			steps
+			{
+				sh 'mvn package'
+			}
+		}
+		stage('Continuous Deployment') 
+		{
+			steps
+			{
+				sh 'scp /home/ubuntu/.jenkins/workspace/scripted_pipeline@2/webapp/target/webapp.war ubuntu@172.31.84.2:/var/lib/tomcat8/webapps/testapp'
+			}
+		}
+		stage('Continuous Testing') 
+		{
+			steps
+			{
+				git 'https://github.com/ArkLearnersEdge/FunctionalTesting.git'
+				sh 'java -jar /home/ubuntu/.jenkins/workspace/scripted_pipeline/testing.jar'
+			}
+	    }
+	}
+	post
 	{
-		sh 'mvn package'
-    }
-	stage('Continuous Deployment') 
-	{
-		sh 'scp /home/ubuntu/.jenkins/workspace/scripted_pipeline@2/webapp/target/webapp.war ubuntu@172.31.84.2:/var/lib/tomcat8/webapps/testapp'
-    }
-	stage('Continuous Testing') 
-	{
-		git 'https://github.com/ArkLearnersEdge/FunctionalTesting.git'
-		sh 'java -jar /home/ubuntu/.jenkins/workspace/scripted_pipeline/testing.jar'
+		succesee
+		{
+			sh 'scp /home/ubuntu/.jenkins/workspace/scripted_pipeline@2/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/testapp'
+		}
+		failed
+		{
+			mail bcc: '', body: 'the processe has been failed plese recheck', cc: 'lalitha@gmail.com', from: '', replyTo: '', subject: 'CI-CD processes failed ', to: 'unis@gmail.com'
+		}
 		
-    }
-	stage('Continuous Production') 
-	{
-		sh 'scp /home/ubuntu/.jenkins/workspace/scripted_pipeline@2/webapp/target/webapp.war ubuntu@172.31.94.36:/var/lib/tomcat8/webapps/testapp'
-    }
-    
 }
+
+
