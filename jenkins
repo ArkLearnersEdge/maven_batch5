@@ -22,7 +22,7 @@ pipeline
 		{
 			steps
 			{
-				sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.84.2:/var/lib/tomcat8/webapps/testapp'
+				sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/testapp'
 			}
 		}
 		stage('Continuous Testing') 
@@ -38,7 +38,7 @@ pipeline
 	{
 		success
 		{
-			sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/testapp'
+			sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.82.66:/var/lib/tomcat8/webapps/testapp'
 		}
 		failure
 		{
@@ -46,6 +46,4 @@ pipeline
 		}
 	}	
 }
-
-
 
