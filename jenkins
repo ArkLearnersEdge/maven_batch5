@@ -47,7 +47,7 @@ pipeline
 				{
 					try
 					{
-						sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/testapp'
+						sh 'scp /home/ubuntu/.jenkins/workspace/declarative2/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/testapp'
 					}
 					catch(Exception e3)
 					{
@@ -66,7 +66,7 @@ pipeline
 					try
 					{
 						git 'https://github.com/ArkLearnersEdge/FunctionalTesting.git'
-						sh 'java -jar /home/ubuntu/.jenkins/workspace/descriptive_pipeline/testing.jar'
+						sh 'java -jar /home/ubuntu/.jenkins/workspace/declarative2/testing.jar'
 					}
 					catch(Exception e4)
 					{
@@ -84,7 +84,7 @@ pipeline
 				{
 					try
 					{
-						sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/prodapp'
+						sh 'scp /home/ubuntu/.jenkins/workspace/declarative2/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/prodapp'
 					}
 					catch(Exception e5)
 					{
