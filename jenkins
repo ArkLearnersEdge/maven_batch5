@@ -16,6 +16,7 @@ pipeline
 					catch(Exception e1)
 					{
 						mail bcc: '', body: 'stage continuous download', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'gitAdmin@gmail.com'
+						exit(1)
 					}
 				}
 			}
@@ -35,65 +36,12 @@ pipeline
 					catch(Exception e2)
 					{
 						mail bcc: '', body: 'stage continuous build', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'developer@gmail.com'
+						exit(1)
 					}
 				}
 			}
 		}
-		stage('Continuous Deployment') 
-		{
-			steps
-			{
-				script
-				{
-					try
-					{
-						sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/testapp'
-					}
-					catch(Exception e3)
-					{
-						mail bcc: '', body: 'stage continuous build', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'admin@gmail.com'
-					}
-				}
-			}
-			
-		}
-		stage('Continuous Testing') 
-		{	
-			steps
-			{
-				script
-				{
-					try
-					{
-						git 'https://github.com/ArkLearnersEdge/FunctionalTesting.git'
-						sh 'java -jar /home/ubuntu/.jenkins/workspace/descriptive_pipeline/testing.jar'
-					}
-					catch(Exception e4)
-					{
-						mail bcc: '', body: 'stage continuous build', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'testing@gmail.com'
-					}
-				}
-			}
-			
-	    }
-	stage('Continuous PRODUCTION') 
-		{	
-			steps
-			{
-				script
-				{
-					try
-					{
-						sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/prodapp'
-					}
-					catch(Exception e5)
-					{
-						mail bcc: '', body: 'stage continuous build', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'admin@gmail.com'
-					}
-				}
-			}
-			
-		}
+		
 	}
 }
 
