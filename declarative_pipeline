@@ -33,11 +33,12 @@ pipeline
 				
 			}
 		}
+	}
 		post
 		{
 			success
 			{
-				sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.89.240:/var/lib/tomcat8/webapps/testapp.war'			
+				sh 'scp /home/ubuntu/.jenkins/workspace/descriptive_pipeline/webapp/target/webapp.war ubuntu@172.31.89.240:/var/lib/tomcat8/webapps/prodapp.war'			
 			}
 			failure
 			{
@@ -48,5 +49,4 @@ failure reason :''', cc: 'ark@gmail.com', from: '', replyTo: '', subject: 'faile
 			}
 		}
 		
-	}
 }
