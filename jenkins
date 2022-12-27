@@ -36,7 +36,7 @@ pipeline
 	}
 	post
 	{
-		succesee
+		success
 		{
 			sh 'scp /home/ubuntu/.jenkins/workspace/scripted_pipeline@2/webapp/target/webapp.war ubuntu@172.31.90.210:/var/lib/tomcat8/webapps/testapp'
 		}
@@ -44,5 +44,7 @@ pipeline
 		{
 			mail bcc: '', body: 'the processe has been failed plese recheck', cc: 'lalitha@gmail.com', from: '', replyTo: '', subject: 'CI-CD processes failed ', to: 'unis@gmail.com'
 		}
-	}
+	}	
 }
+
+
