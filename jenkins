@@ -16,6 +16,7 @@ pipeline
 					catch(Exception e1)
 					{
 						mail bcc: '', body: 'stage continuous download', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'gitAdmin@gmail.com'
+						exit(1)
 					}
 				}
 			}
@@ -30,11 +31,12 @@ pipeline
 				{
 					try
 					{
-						 'mvn package'
+						sh 'mvn package'
 					}
 					catch(Exception e2)
 					{
 						mail bcc: '', body: 'stage continuous build', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'developer@gmail.com'
+						exit(1)
 					}
 				}
 			}
@@ -52,6 +54,7 @@ pipeline
 					catch(Exception e3)
 					{
 						mail bcc: '', body: 'stage continuous build', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'admin@gmail.com'
+						exit(1)
 					}
 				}
 			}
@@ -71,6 +74,7 @@ pipeline
 					catch(Exception e4)
 					{
 						mail bcc: '', body: 'stage continuous build', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'testing@gmail.com'
+					exit(1)
 					}
 				}
 			}
@@ -89,6 +93,7 @@ pipeline
 					catch(Exception e5)
 					{
 						mail bcc: '', body: 'stage continuous build', cc: 'manageer@gmail.com,', from: '', replyTo: '', subject: 'failed CI-CD processes ', to: 'admin@gmail.com'
+					exit(1)
 					}
 				}
 			}
@@ -96,4 +101,3 @@ pipeline
 		}
 	}
 }
-
